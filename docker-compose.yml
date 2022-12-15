@@ -4,8 +4,6 @@ services:
     api:
         build: quote-api
         restart: always
-        networks:
-            - quotebot
         command: node index.js
         environment:
             PORT: ${PORT:-4888}
