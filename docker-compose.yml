@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+    api:
+        build: quote-api
+        restart: always
+        networks:
+            - quotebot
+        command: node index.js
+        environment:
+            PORT: ${PORT:-4888}
+            BOT_TOKEN: ${BOT_TOKEN?BOT_TOKEN have to be set}
+            EMOJI_DOMAIN: ${EMOJI_DOMAIN:-https://emojipedia.org/}
+
+
+    bot:
+        build: quote-bot
+        restart: always
+        command: node index.js
+        environment:
+            MONGODB_URI: ${MONGODB_URI:-mongodb://mongo:27017/QuoteBot}
+            BOT_TOKEN: ${BOT_TOKEN?BOT_TOKEN have to be set}
+            EMOJI_DOMAIN: ${EMOJI_DOMAIN:-https://emojipedia.org/}
+            QUOTE_API_URL: ${QUOTE_API_URL:-http://api:4888}
+
+    mongo:
+        restart: always
+        image: mongo:4
+        volumes:
+            - mongo-data:/data/db
+
+
+volumes:
+    mongo-data:

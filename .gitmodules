@@ -1,0 +1,6 @@
+[submodule "quote-bot"]
+	path = quote-bot
+	url = git@github.com:LyoSU/quote-bot.git
+[submodule "quote-api"]
+	path = quote-api
+	url = git@github.com:LyoSU/quote-api.git
